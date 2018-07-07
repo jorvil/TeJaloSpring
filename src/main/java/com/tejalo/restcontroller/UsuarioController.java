@@ -16,86 +16,86 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tejalo.entidades.Usuario;
-import com.tejalo.repositorio.UsuarioRepositorio;
+import com.tejalo.entidades.Usuarios;
+import com.tejalo.repositorio.UsuariosRepositorio;
 
 @RestController
 @RequestMapping("/api")
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
+	private UsuariosRepositorio usuariosRepositorio;
 	
 	@GetMapping("/usuarios")
-	public List<Usuario> obtenerUsuarios(){		
-		return(List<Usuario>) usuarioRepositorio.findAll();
+	public List<Usuarios> obtenerUsuarios(){		
+		return(List<Usuarios>) usuariosRepositorio.findAll();
 	}
 
 	@PostMapping("/registrarUsuario")
-	public Usuario registrarUSuario(@Valid @RequestBody Usuario usuario) {
+	public Usuarios registrarUSuario(@Valid @RequestBody Usuarios usuario) {
 
-		return usuarioRepositorio.save(usuario);
+		return usuariosRepositorio.save(usuario);
 	}
 	
 	
 	@GetMapping("/usuarios/{nombre}/{password}")
-	public List<Usuario> obtenerUsuarioByFetch(@PathVariable(value = "nombre") String nombre,
+	public List<Usuarios> obtenerUsuarioByFetch(@PathVariable(value = "nombre") String nombre,
 			@PathVariable(value = "password") String password) {
-		return usuarioRepositorio.findDataByLogin(nombre, password);
+		return usuariosRepositorio.findDataByLogin(nombre, password);
 	}
 	
 	
 	/////////////////////////
 	
 	@GetMapping("/usuario/{codigo}") 
-	 public Usuario	obtenerUsuarioById(@PathVariable(value = "codigo") Long codigo) {
-		return usuarioRepositorio.findBycodigo(codigo);
+	 public Usuarios	obtenerUsuarioById(@PathVariable(value = "codigo") Long codigo) {
+		return usuariosRepositorio.findBycodigo(codigo);
 	    }
 	
 
 	@GetMapping("/usuario/buscarDNI/{DNI}") 
-	 public Usuario	 findDataByDNI(@PathVariable(value = "DNI") String DNI) {
-	    return usuarioRepositorio.findDataByDNI(DNI);
+	 public Usuarios	 findDataByDNI(@PathVariable(value = "DNI") String DNI) {
+	    return usuariosRepositorio.findDataByDNI(DNI);
 	    }
 	
 	@GetMapping("/usuario/buscaremail/{email}") 
-	 public Usuario	 findDataByemail(@PathVariable(value = "email") String email) {
-	    return usuarioRepositorio.findDataByemail(email);
+	 public Usuarios	 findDataByemail(@PathVariable(value = "email") String email) {
+	    return usuariosRepositorio.findDataByemail(email);
 	    }
 	
 	@PutMapping("/usuario/{codigo}")
-	public Usuario actualizarProducto(@PathVariable(value = "codigo") Long codigo,
-			@Valid @RequestBody Usuario usuarioDetalle) {
+	public Usuarios actualizarProducto(@PathVariable(value = "codigo") Long codigo,
+			@Valid @RequestBody Usuarios usuarioDetalle) {
 		
-		Usuario usuario = usuarioRepositorio.findBycodigo(codigo);
+		Usuarios usuario = usuariosRepositorio.findBycodigo(codigo);
 		
 		usuario.setApellido(usuarioDetalle.getApellido());
 		usuario.setNombre(usuarioDetalle.getNombre());
 		usuario.setTelefono(usuarioDetalle.getTelefono());
 
-		Usuario updatedUsuario = usuarioRepositorio.save(usuario);
+		Usuarios updatedUsuario = usuariosRepositorio.save(usuario);
 		return updatedUsuario;
 	}
 	
 	
 	@PutMapping("/usuario/eliminar/{codigo}")
-	public Usuario actualizarestadoProducto(@PathVariable(value = "codigo") Long codigo,
-			@Valid @RequestBody Usuario usuarioDetalle) {
+	public Usuarios actualizarestadoProducto(@PathVariable(value = "codigo") Long codigo,
+			@Valid @RequestBody Usuarios usuarioDetalle) {
 		
-		Usuario usuario = usuarioRepositorio.findBycodigo(codigo);
+		Usuarios usuario = usuariosRepositorio.findBycodigo(codigo);
 		
 		usuario.setEstado("I");		
 
-		Usuario updatedUsuario = usuarioRepositorio.save(usuario);
+		Usuarios updatedUsuario = usuariosRepositorio.save(usuario);
 		return updatedUsuario;
 	}	
 	
 	
 	@DeleteMapping("/usuario/{id}")
 	public ResponseEntity<?> eliminarUsuario(@PathVariable(value = "id") Long codigo) {
-	    Usuario usuario = usuarioRepositorio.findBycodigo(codigo);	            
+	    Usuarios usuario = usuariosRepositorio.findBycodigo(codigo);	            
 
-	    usuarioRepositorio.deleteById(codigo);
+	    usuariosRepositorio.deleteById(codigo);
 
 	    return ResponseEntity.ok().build();
 	}

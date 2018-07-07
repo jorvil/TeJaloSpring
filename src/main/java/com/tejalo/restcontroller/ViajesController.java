@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tejalo.entidades.Distritos;
-import com.tejalo.entidades.Usuario;
+import com.tejalo.entidades.Usuarios;
 import com.tejalo.entidades.Viajes;
 import com.tejalo.repositorio.ViajesRepositorio;
 
