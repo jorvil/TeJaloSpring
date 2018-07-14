@@ -11,98 +11,97 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-public class Usuarios implements Serializable {
-
+public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	@Column(length = 100)
-	private String Email;
+	private String email;
 	@Column(length = 20)
-	private String Password;
+	private String password;
 	@Column(length = 8)
-	private String DNI;
+	private String dni;
 	@Column(length = 50)
-	private String Nombre;
+	private String nombre;
 	@Column(length = 50)
-	private String Apellido;
+	private String apellido;
 	@Column(length = 20)
-	private String Telefono;
+	private String telefono;
 	@Column(length = 1)
-	private String Sexo;
+	private String sexo;
 	@Column(length = 1)
-	private String Estado;
+	private String estado;
 
-	public Long getId() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setId(Long id) {
-		this.codigo = id;
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 
-	public String getDNI() {
-		return DNI;
+	public String getDni() {
+		return dni;
 	}
 
-	public void setDNI(String dNI) {
-		DNI = dNI;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
 
 	public void setApellido(String apellido) {
-		Apellido = apellido;
+		this.apellido = apellido;
 	}
 
 	public String getTelefono() {
-		return Telefono;
+		return telefono;
 	}
 
 	public void setTelefono(String telefono) {
-		Telefono = telefono;
+		this.telefono = telefono;
 	}
 
 	public String getSexo() {
-		return Sexo;
+		return sexo;
 	}
 
 	public void setSexo(String sexo) {
-		Sexo = sexo;
+		this.sexo = sexo;
 	}
 
 	public String getEstado() {
-		return Estado;
+		return estado;
 	}
 
 	public void setEstado(String estado) {
-		Estado = estado;
+		this.estado = estado;
 	}
 
 }
