@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.aspectj.lang.annotation.SuppressAjWarnings;
+@SuppressAjWarnings("serial")
 @Entity
 @Table(name = "viaje")
 public class Viaje {
@@ -27,6 +30,7 @@ public class Viaje {
 	private String estado;
 	
 	@ManyToOne
+	@JoinColumn(name="codigo")
 	private Usuario usuario;
 
 	
@@ -37,6 +41,14 @@ public class Viaje {
 
 	public void setIdViaje(Long idViaje) {
 		this.idViaje = idViaje;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Long getDistritoOrigen() {

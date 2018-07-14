@@ -30,7 +30,7 @@ public class ViajesController {
 	@Autowired
 	private ViajesRepositorio repositorio;
 
-	@PostMapping("/viajes")
+	/*@PostMapping("/viajes")
 	public Viajes RegistrarViaje(@Valid @RequestBody Viajes viajes) {
 
 		return repositorio.save(viajes);
@@ -58,4 +58,5 @@ public class ViajesController {
 
 		return update;
 	}
+	*/
 }
