@@ -60,7 +60,7 @@ public class Reserva {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
+ 
 	public Usuario getUsuario() {
 		return usuario;
 	}
