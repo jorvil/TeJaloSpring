@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +14,7 @@ public class Viaje {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long idViaje;
 	private Long distritoOrigen;
 	private Long distritoDestino;
 	@Column(length = 16)
@@ -24,14 +25,18 @@ public class Viaje {
 	private double tarifa;
 	@Column(length = 1)
 	private String estado;
-	private Long usuarioCodigo;
+	
+	@ManyToOne
+	private Usuario usuario;
 
-	public Long getCodigo() {
-		return codigo;
+	
+
+	public Long getIdViaje() {
+		return idViaje;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setIdViaje(Long idViaje) {
+		this.idViaje = idViaje;
 	}
 
 	public Long getDistritoOrigen() {
@@ -90,12 +95,6 @@ public class Viaje {
 		this.estado = estado;
 	}
 
-	public Long getUsuarioCodigo() {
-		return usuarioCodigo;
-	}
-
-	public void setUsuarioCodigo(Long usuarioCodigo) {
-		this.usuarioCodigo = usuarioCodigo;
-	}
+	
 
 }

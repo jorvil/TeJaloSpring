@@ -19,7 +19,7 @@ public class ReservaRest {
 	@Autowired
 	private ReservaRepository reservaRepository;
 	
-	@PostMapping("/registrarViaje")
+	@PostMapping("/reservarViaje")
 	public Reserva RegistrarViaje(@Valid @RequestBody Reserva reserva) {
 
 		return reservaRepository.save(reserva);
