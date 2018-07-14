@@ -24,7 +24,7 @@ public class Viaje {
 	private int cantidad;
 	private double tarifa;
 	@Column(length = 1)
-	private String estado; 
+	private String estado;
 	
 	@ManyToOne
 	private Usuario usuario;
