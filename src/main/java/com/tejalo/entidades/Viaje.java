@@ -35,7 +35,6 @@ public class Viaje implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="codigo")
 	private Usuario usuario;
-
 	
 
 	public Long getIdViaje() {

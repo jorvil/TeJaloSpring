@@ -25,13 +25,11 @@ public class ViajeRest {
 	@Autowired
 	private ViajeRepository viajeRepository;
 	
-	@PostMapping("/registrarViaje")
+	@PostMapping("/RegistrarViaje")
 	public Viaje RegistrarViaje(@Valid @RequestBody Viaje viaje) {
 
 		return viajeRepository.save(viaje);		
-	}
-	
-	
+	}	
 	
 	@GetMapping("/viajes")
 	public List<Viaje> obtenerViajes(){		
@@ -39,18 +37,30 @@ public class ViajeRest {
 	}
 	
 	//
-	@GetMapping("/viajes/{codigo}")
+	@GetMapping("/viaje/{codigo}")
 	public Optional<Viaje> ObtenerViaje(@PathVariable(value = "codigo") Long codigo) {
 		return viajeRepository.findById(codigo);
 	}
 
-	@PutMapping("/viajes/{idViaje}")
-	public Viaje ActualizarViaje(@PathVariable(value = "idViaje") Long idViaje,
+	@PutMapping("/Cancelarviaje/{idViaje}")
+	public Viaje CancelarViaje(@PathVariable(value = "idViaje") Long idViaje,
 			@Valid @RequestBody Viaje ViajesDetalles) {
 
 		Viaje viaje = viajeRepository.findByIdViaje(idViaje);
 
-		viaje.setEstado(ViajesDetalles.getEstado());
+		viaje.setEstado("C");
+		Viaje update = viajeRepository.save(viaje);
+
+		return update;
+	}
+	
+	@PutMapping("/Terminarviaje/{idViaje}")
+	public Viaje TerminarViaje(@PathVariable(value = "idViaje") Long idViaje,
+			@Valid @RequestBody Viaje ViajesDetalles) {
+
+		Viaje viaje = viajeRepository.findByIdViaje(idViaje);
+
+		viaje.setEstado("T");
 		Viaje update = viajeRepository.save(viaje);
 
 		return update;
@@ -60,6 +70,11 @@ public class ViajeRest {
 	public List<Viaje> obtenerViajeByFetch(@PathVariable(value = "distritoorigen") Long distritoorigen,
 			@PathVariable(value = "distritodestino") Long distritodestino,@PathVariable(value = "fecha") String fecha) {
 		return viajeRepository.findDataByViajeFecha(distritoorigen, distritodestino,fecha);
+	}
+	
+	@GetMapping("/viajeConductor/{idConductor}")
+	public List<Viaje> obtenerViajeByConductor(@PathVariable(value = "idConductor") Long codigo) {
+		return viajeRepository.findDataByViajeUsuario(codigo);
 	}
 	
 }
