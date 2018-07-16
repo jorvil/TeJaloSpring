@@ -20,9 +20,7 @@ public class Viaje implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idViaje;
-	private Long distritoOrigen;
-	private Long distritoDestino;
+	private Long idViaje;	
 	@Column(length = 16)
 	private String fecha;
 	@Column(length = 5)
@@ -36,6 +34,14 @@ public class Viaje implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="codigo")
 	private Usuario usuario;
+	
+	@ManyToOne
+	@JoinColumn(name="origen")
+	private Distritos origen;
+	
+	@ManyToOne
+	@JoinColumn(name="destino")
+	private Distritos destino;
 	
 
 	public Long getIdViaje() {
@@ -52,22 +58,6 @@ public class Viaje implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Long getDistritoOrigen() {
-		return distritoOrigen;
-	}
-
-	public void setDistritoOrigen(Long distritoOrigen) {
-		this.distritoOrigen = distritoOrigen;
-	}
-
-	public Long getDistritoDestino() {
-		return distritoDestino;
-	}
-
-	public void setDistritoDestino(Long distritoDestino) {
-		this.distritoDestino = distritoDestino;
 	}
 
 	public String getFecha() {
@@ -116,6 +106,22 @@ public class Viaje implements Serializable{
 
 	public void setDisponible(int disponible) {
 		this.disponible = disponible;
+	}
+
+	public Distritos getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(Distritos origen) {
+		this.origen = origen;
+	}
+
+	public Distritos getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Distritos destino) {
+		this.destino = destino;
 	}
 
 	
