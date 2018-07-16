@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.tejalo.entidades.Viaje;
+import com.tejalo.repositorio.ReservaRepository;
 import com.tejalo.repositorio.ViajeRepository;
 
 @RestController
@@ -24,6 +26,9 @@ public class ViajeRest {
 
 	@Autowired
 	private ViajeRepository viajeRepository;
+	
+	@Autowired
+	private ReservaRepository reservaRepository;
 	
 	@PostMapping("/registrarViaje")
 	public Viaje RegistrarViaje(@Valid @RequestBody Viaje viaje) {
@@ -46,9 +51,10 @@ public class ViajeRest {
 	public Viaje CancelarViaje(@PathVariable(value = "idViaje") Long idViaje) {
 
 		Viaje viaje = viajeRepository.findByIdViaje(idViaje);
-
 		viaje.setEstado("C");
 		Viaje update = viajeRepository.save(viaje);
+		
+		reservaRepository.CancelarReservasViaje(viaje.getIdViaje());
 
 		return update;
 	}
@@ -60,6 +66,8 @@ public class ViajeRest {
 
 		viaje.setEstado("T");
 		Viaje update = viajeRepository.save(viaje);
+		
+		reservaRepository.TerminarReservasViaje(viaje.getIdViaje());
 
 		return update;
 	}
