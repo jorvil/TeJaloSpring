@@ -25,7 +25,7 @@ public class ViajeRest {
 	@Autowired
 	private ViajeRepository viajeRepository;
 	
-	@PostMapping("/RegistrarViaje")
+	@PostMapping("/registrarViaje")
 	public Viaje RegistrarViaje(@Valid @RequestBody Viaje viaje) {
 
 		return viajeRepository.save(viaje);		
@@ -42,9 +42,8 @@ public class ViajeRest {
 		return viajeRepository.findById(codigo);
 	}
 
-	@PutMapping("/Cancelarviaje/{idViaje}")
-	public Viaje CancelarViaje(@PathVariable(value = "idViaje") Long idViaje,
-			@Valid @RequestBody Viaje ViajesDetalles) {
+	@PutMapping("/cancelarViaje/{idViaje}")
+	public Viaje CancelarViaje(@PathVariable(value = "idViaje") Long idViaje) {
 
 		Viaje viaje = viajeRepository.findByIdViaje(idViaje);
 
@@ -54,9 +53,8 @@ public class ViajeRest {
 		return update;
 	}
 	
-	@PutMapping("/Terminarviaje/{idViaje}")
-	public Viaje TerminarViaje(@PathVariable(value = "idViaje") Long idViaje,
-			@Valid @RequestBody Viaje ViajesDetalles) {
+	@PutMapping("/terminarViaje/{idViaje}")
+	public Viaje TerminarViaje(@PathVariable(value = "idViaje") Long idViaje) {
 
 		Viaje viaje = viajeRepository.findByIdViaje(idViaje);
 

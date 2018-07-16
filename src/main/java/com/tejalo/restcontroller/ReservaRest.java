@@ -1,7 +1,6 @@
 package com.tejalo.restcontroller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tejalo.entidades.Reserva;
 import com.tejalo.entidades.Viaje;
 import com.tejalo.repositorio.ReservaRepository;
+import com.tejalo.repositorio.ViajeRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -25,32 +25,40 @@ public class ReservaRest {
 	@Autowired
 	private ReservaRepository reservaRepository;
 	
+	@Autowired
+	private ViajeRepository viajeRepository;
+	
+	
 	@PostMapping("/reservarViaje")
-	public Reserva RegistrarReserva(@Valid @RequestBody Reserva reserva) {
-
-		return reservaRepository.save(reserva);
+	public Reserva RegistrarReserva(@Valid @RequestBody Reserva reserva) {		
+		Reserva reservaGrabada=reservaRepository.save(reserva);
+		Viaje viaje=viajeRepository.findByIdViaje(reservaGrabada.getViaje().getIdViaje());
+		viaje.setDisponible(viaje.getDisponible()-1);
+		viajeRepository.save(viaje);
+		return reservaGrabada;
 	}
 	
-	@GetMapping("/Reservas")
+	@GetMapping("/reservas")
 	public List<Reserva> obtenerReservas(){		
 		return(List<Reserva>) reservaRepository.findAll();
 	}
 	
 	
-	@PutMapping("/CancelarReserva/{idreserva}")
-	public Reserva CancelarReserva(@PathVariable(value = "idreserva") Long idreserva,
-			@Valid @RequestBody Reserva ReservaDetalles) {
+	@PutMapping("/cancelarReserva/{idReserva}")
+	public Reserva CancelarReserva(@PathVariable(value = "idReserva") Long idReserva) {
 
-		Reserva Reserva = reservaRepository.findByIdReserva(idreserva);
+		Reserva Reserva = reservaRepository.findByIdReserva(idReserva);
 		Reserva.setEstado("C");
 		Reserva update = reservaRepository.save(Reserva);
+		Viaje viaje=viajeRepository.findByIdViaje(Reserva.getViaje().getIdViaje());
+		viaje.setDisponible(viaje.getDisponible()+1);
+		viajeRepository.save(viaje);
 
 		return update;
 	}
 	
-	@PutMapping("/TerminarReserva/{idViaje}")
-	public Reserva TerminarReserva(@PathVariable(value = "idreserva") Long idreserva,
-			@Valid @RequestBody Viaje ReservaDetalles) {
+	@PutMapping("/terminarReserva/{idViaje}")
+	public Reserva TerminarReserva(@PathVariable(value = "idreserva") Long idreserva) {
 
 		Reserva Reserva = reservaRepository.findByIdReserva(idreserva);
 
@@ -60,12 +68,12 @@ public class ReservaRest {
 		return update;
 	}
 	
-	@GetMapping("/ReservaUsuario/{idConductor}")
+	@GetMapping("/reservaUsuario/{idConductor}")
 	public List<Reserva> obtenerReservaByUsuario(@PathVariable(value = "idConductor") Long codigo) {
 		return reservaRepository.findDataByReservaPasajero(codigo);
 	}
 	
-	@GetMapping("/ReservaConductor/{idConductor}")
+	@GetMapping("/reservaConductor/{idConductor}")
 	public List<Reserva> obtenerReservaByConductor(@PathVariable(value = "idConductor") Long codigo) {
 		return reservaRepository.findDataByReservaCondudctor(codigo);
 	}

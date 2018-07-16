@@ -31,6 +31,7 @@ public class Viaje implements Serializable{
 	private double tarifa;
 	@Column(length = 1)
 	private String estado;
+	private int disponible;
 	
 	@ManyToOne
 	@JoinColumn(name="codigo")
@@ -107,6 +108,14 @@ public class Viaje implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public int getDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(int disponible) {
+		this.disponible = disponible;
 	}
 
 	
