@@ -11,7 +11,7 @@ public class ResourceNotFoundException extends RuntimeException {
     private Object fieldValue;
 
     public ResourceNotFoundException( String resourceName, String fieldName, Object fieldValue) {
-        super(String.format("%s no fue encontrado con el %s : '%s' o esta Inactivo" , resourceName, fieldName, fieldValue));
+        super(String.format("%s no fue encontrado con el %s : '%s' o esta Inactivo o su contraseña es incorrecta" , resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;

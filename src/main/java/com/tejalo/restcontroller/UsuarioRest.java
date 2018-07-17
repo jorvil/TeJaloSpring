@@ -26,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tejalo.entidades.Correo;
 import com.tejalo.entidades.Usuario;
+import com.tejalo.excepcion.ResourceNotFoundException;
 import com.tejalo.repositorio.UsuarioRepository;
 
 
@@ -70,9 +71,14 @@ public class UsuarioRest {
 	}
 
 	@GetMapping("/usuario/{nombre}/{password}")
-	public List<Usuario> obtenerUsuarioByFetch(@PathVariable(value = "nombre") String nombre,
+	public ResponseEntity  obtenerUsuarioByFetch(@PathVariable(value = "nombre") String nombre,
 			@PathVariable(value = "password") String password) {
-		return usuarioRepository.findDataByLogin(nombre, password);
+		Usuario usuario=usuarioRepository.findDataByLogin(nombre, password);
+		if(usuario==null) {
+			throw new ResourceNotFoundException("Usuario", "Nombre", nombre);
+			
+		}
+		return ResponseEntity.ok(usuario);
 	}
 
 	/////////////////////////
