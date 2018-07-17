@@ -37,4 +37,6 @@ public interface ReservaRepository extends CrudRepository<Reserva, Long>{
 	@Transactional
 	@Query(value="update reserva set estado='T' where id_viaje=?1",nativeQuery=true)
 	void TerminarReservasViaje(Long idviaje);
+	
+	
 }
