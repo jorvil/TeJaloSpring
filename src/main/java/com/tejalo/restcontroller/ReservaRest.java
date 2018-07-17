@@ -68,8 +68,8 @@ public class ReservaRest {
 		return update;
 	}
 	
-	@GetMapping("/reservaUsuario/{idConductor}")
-	public List<Reserva> obtenerReservaByUsuario(@PathVariable(value = "idConductor") Long codigo) {
+	@GetMapping("/reservaPasajero/{idPasajero}")
+	public List<Reserva> obtenerReservaByPasajero(@PathVariable(value = "idPasajero") Long codigo) {
 		return reservaRepository.findDataByReservaPasajero(codigo);
 	}
 	
