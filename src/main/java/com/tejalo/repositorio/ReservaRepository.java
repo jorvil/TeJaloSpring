@@ -24,7 +24,7 @@ public interface ReservaRepository extends CrudRepository<Reserva, Long>{
 	//Consulta para obtener las reservas que tiene un conductor por viaje
 	@Query(value="Select id_reserva,fecha,estado,hora,id_viaje,codigo from reserva  r "
 			+ "where r.id_viaje=?1 and r.estado='P'",nativeQuery=true)
-	  List<Reserva> findDataByReservaCondudctor(Long idviaje);
+	  List<Reserva> findDataByReservaConductor(Long idviaje);
 	
 	//Metodo de actualizacion masiva para un viaje que se cancela
 	@Modifying
