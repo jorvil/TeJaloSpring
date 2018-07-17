@@ -38,7 +38,7 @@ public class ViajeRest {
 	
 	@GetMapping("/viajes")
 	public List<Viaje> obtenerViajes(){		
-		return(List<Viaje>) viajeRepository.findAll();
+		return(List<Viaje>) viajeRepository.findAll();		
 	}
 	
 	//
@@ -72,10 +72,10 @@ public class ViajeRest {
 		return update;
 	}
 	
-	@GetMapping("/viaje/{distritoorigen}/{distritodestino}/{fecha}")
+	@GetMapping("/viaje/{distritoorigen}/{distritodestino}/{fecha}/{codigo}")
 	public List<Viaje> obtenerViajeByFetch(@PathVariable(value = "distritoorigen") Long distritoorigen,
-			@PathVariable(value = "distritodestino") Long distritodestino,@PathVariable(value = "fecha") String fecha) {
-		return viajeRepository.findDataByViajeFecha(distritoorigen, distritodestino,fecha);
+			@PathVariable(value = "distritodestino") Long distritodestino,@PathVariable(value = "fecha") String fecha,@PathVariable(value = "codigo") Long codigo) {		
+		return viajeRepository.findDataByViajeFecha(distritoorigen, distritodestino,fecha,codigo);
 	}
 	
 	@GetMapping("/viajeConductor/{idConductor}")
