@@ -1,10 +1,16 @@
 package com.tejalo.restcontroller;
 
+
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +20,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tejalo.entidades.Correo;
 import com.tejalo.entidades.Usuario;
 import com.tejalo.repositorio.UsuarioRepository;
+
 
 @RestController
 @RequestMapping("/api")
@@ -33,7 +44,29 @@ public class UsuarioRest {
 	@PostMapping("/registrarUsuario")
 	public Usuario registrarUSuario(@Valid @RequestBody Usuario usuario) {
 
-		return usuarioRepository.save(usuario);
+		try {
+			Usuario grabado = usuarioRepository.save(usuario);
+			RestTemplate restTemplate = new RestTemplate();
+			ObjectMapper mapper = new ObjectMapper();
+			
+			String url = "http://intranet.fridaysperu.com:9090/api/enviar/{parametros}";
+			String parametros = "{\"asunto\":\"Bienvenido a Tejalo\",\"cuerpo\":\"Bienvenido "+usuario.getApellido() +" " + usuario.getNombre() +" a la comunidad Tejalo\",\"destinatario\":\""+usuario.getEmail()+"\"}";
+			String UsuarioRecibido = mapper.writeValueAsString(usuario);
+			System.out.println("Estructura Usuario a Grabar:" + UsuarioRecibido);
+			System.out.println("Estructura GET:" + url);
+			
+			 String result = restTemplate.getForObject(url, String.class, parametros);
+
+			    System.out.println(result);
+			return grabado;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Ups que fue!");	
+			e.printStackTrace();
+			return null;
+		}		
+		
+		
 	}
 
 	@GetMapping("/usuarios/{nombre}/{password}")
