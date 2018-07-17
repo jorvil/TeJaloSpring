@@ -36,7 +36,7 @@ public class UsuarioRest {
 		return usuarioRepository.save(usuario);
 	}
 
-	@GetMapping("/usuarios/{nombre}/{password}")
+	@GetMapping("/usuario/{nombre}/{password}")
 	public List<Usuario> obtenerUsuarioByFetch(@PathVariable(value = "nombre") String nombre,
 			@PathVariable(value = "password") String password) {
 		return usuarioRepository.findDataByLogin(nombre, password);
